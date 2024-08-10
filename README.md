@@ -1,4 +1,4 @@
-# Simple Pantry Tracker App
+# Simple Pantry Tracker App - Learning Firebase and Next.js
 
 This is a Simple Pantry Tracker App created with Next.js. The app helps you track items in your pantry. Below are the steps to set up and run the application.
 
@@ -178,5 +178,13 @@ export default function Home() {
   );
 }
 ```
+
+## Preview
+
+![image](https://github.com/user-attachments/assets/f833d1de-a51a-43e8-837f-13989e7c2989)
+
+## DEMO
+
+![inventory](https://github.com/user-attachments/assets/b3de29cb-4301-4b5e-ab8f-e715a7f0677e)
 
 
