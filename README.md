@@ -46,3 +46,11 @@ Start the development server with the following command:
 ```
 
 Open your browser and go to http://localhost:3000 to view the app.
+
+## Installing MUI - Material Component Design
+
+use the following command to install MUI:
+
+```bash
+  npm install @mui/material @emotion/react @emotion/styled
+```
