@@ -196,4 +196,8 @@ For improving the UI we will be using "MUI" which is Material UI by using this c
 yarn add @mui/material @emotion/react @emotion/styled
 ```
 
+We will be able to use the module using the following import:
 
+```bash
+import { Container } from "@mui/material";
+```
