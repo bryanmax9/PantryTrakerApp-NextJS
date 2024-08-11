@@ -188,3 +188,12 @@ export default function Home() {
 ![inventory](https://github.com/user-attachments/assets/b3de29cb-4301-4b5e-ab8f-e715a7f0677e)
 
 
+## Second Part - Improving UI 
+
+For improving the UI we will be using "MUI" which is Material UI by using this command to install:
+
+```bash
+yarn add @mui/material @emotion/react @emotion/styled
+```
+
+
