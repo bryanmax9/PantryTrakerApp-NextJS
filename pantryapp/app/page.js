@@ -24,6 +24,7 @@ export default function Home() {
   const [pantry, setPantry] = useState([]);
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -88,93 +89,186 @@ export default function Home() {
     p: 4,
   };
 
+  // Filtered pantry items based on search term
+  const filteredPantry = pantry.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Box
-      width="100%"
-      minHeight="300px"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      gap={2}
-      p={4}
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={modalStyle}>
-          <Typography variant="h6" component="h2" gutterBottom>
-            📦📝 Add New Item
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <TextField
-              label="Item Name"
-              variant="outlined"
-              fullWidth
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              onClick={() => {
-                addItem(itemName);
-                setItemName("");
-                handleClose();
-              }}
-            >
-              Add
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -2, // Ensure it's behind everything
+        }}
+      >
+        <source src="/Kitchen.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-      <Button variant="contained" onClick={handleOpen}>
-        Add Item
-      </Button>
+      {/* Gradient Overlay */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7))",
+          zIndex: -1, // Overlay just above the video
+        }}
+      />
 
-      <Box width="100%" maxWidth="800px">
-        <Box
-          bgcolor="navy"
-          color="#f0f0f0"
-          p={2}
-          borderRadius="4px 4px 0 0"
-          display="flex"
-          justifyContent="center"
-        >
-          <Typography variant="h4">Pantry Items📦</Typography>
-        </Box>
-
-        <Stack
-          bgcolor="white"
-          border="2px solid navy"
-          borderRadius="0 0 4px 4px"
-          p={2}
-          spacing={2}
-          overflow="auto"
-          maxHeight="400px"
-        >
-          {pantry.map(({ name, count }) => (
-            <Stack
-              key={name}
-              direction="row"
-              spacing={2}
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Box flex={1} display="flex" flexDirection="column">
-                <Typography variant="h5">
-                  {name.charAt(0).toUpperCase() + name.slice(1)}
-                </Typography>
-                <Typography variant="body1">Quantity: {count}</Typography>
-              </Box>
-              <Button
+      <Box
+        width="100%"
+        minHeight="300px"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+        gap={2}
+        p={4}
+        sx={{ position: "relative", zIndex: 1 }} // Content above the background
+      >
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={modalStyle}>
+            <Typography variant="h6" component="h2" gutterBottom>
+              📦📝 Add New Item
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                label="Item Name"
                 variant="outlined"
-                color="error"
-                onClick={() => removeItem(name)}
+                fullWidth
+                value={itemName}
+                onChange={(e) => setItemName(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  addItem(itemName);
+                  setItemName("");
+                  handleClose();
+                }}
               >
-                🗑️ Remove
+                Add
               </Button>
             </Stack>
-          ))}
-        </Stack>
+          </Box>
+        </Modal>
+
+        {/* Styled Search Input Field */}
+        <TextField
+          label="Search Items"
+          variant="outlined"
+          fullWidth
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{
+            mb: 2,
+            bgcolor: "white",
+            borderRadius: 1,
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#f0f0f0", // lighter border color
+                borderWidth: "2px", // thicker border
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#3f51b5", // change color on focus
+              },
+            },
+            "& .MuiInputBase-input": {
+              fontWeight: "bold", // thicker font
+            },
+            "& .MuiInputLabel-root": {
+              fontWeight: "bold", // thicker label font
+              color: "#000", // label color
+            },
+          }}
+        />
+        <Button variant="contained" onClick={handleOpen}>
+          Add Item +
+        </Button>
+
+        <Box width="100%" maxWidth="800px">
+          <Box
+            sx={{
+              background: "linear-gradient(135deg, #3a3d98, #3f51b5)",
+              color: "#f0f0f0",
+              p: 2,
+              borderRadius: "12px 12px 0 0",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.07)",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="h4">Pantry Items📦</Typography>
+          </Box>
+
+          <Stack
+            sx={{
+              background: "rgba(255, 255, 255, 0.8)",
+              border: "1px solid rgba(63, 81, 181, 0.5)",
+              borderRadius: "0 0 12px 12px",
+              backdropFilter: "blur(10px)", // Frosted glass effect
+              p: 2,
+              spacing: 2,
+              overflow: "auto",
+              maxHeight: "400px",
+            }}
+          >
+            {filteredPantry.map(({ name, count }) => (
+              <Stack
+                key={name}
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                  p: 1,
+                  bgcolor: "rgba(255, 255, 255, 0.9)",
+                  borderRadius: 2,
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                  transition: "transform 0.2s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                  },
+                }}
+              >
+                <Box flex={1} display="flex" flexDirection="column">
+                  <Typography variant="h5">
+                    {name.charAt(0).toUpperCase() + name.slice(1)}
+                  </Typography>
+                  <Typography variant="body1">Quantity: {count}</Typography>
+                </Box>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => removeItem(name)}
+                >
+                  🗑️ Remove
+                </Button>
+              </Stack>
+            ))}
+          </Stack>
+        </Box>
       </Box>
     </Box>
   );
