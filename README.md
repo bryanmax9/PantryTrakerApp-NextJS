@@ -179,11 +179,11 @@ export default function Home() {
 }
 ```
 
-## Preview
+## Preview I
 
 ![image](https://github.com/user-attachments/assets/f833d1de-a51a-43e8-837f-13989e7c2989)
 
-## DEMO
+## DEMO I
 
 ![inventory](https://github.com/user-attachments/assets/b3de29cb-4301-4b5e-ab8f-e715a7f0677e)
 
@@ -201,3 +201,11 @@ We will be able to use the module using the following import:
 ```bash
 import { Container } from "@mui/material";
 ```
+
+## Preview II
+
+![image](https://github.com/user-attachments/assets/527bafb4-1020-46b9-9fc4-5f8a52a49c6b)
+
+
+
+
